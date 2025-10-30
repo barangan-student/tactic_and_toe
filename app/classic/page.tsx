@@ -65,7 +65,7 @@ interface BoardProps {
 
 function Board({ squares, onClick, winningLine, winner, disabled }: BoardProps) {
   const renderSquare = (i: number) => {
-    const isWinningSquare = winningLine && winningLine.includes(i);
+    const isWinningSquare = Boolean(winningLine && winningLine.includes(i));
     const delay = isWinningSquare ? (winningLine?.indexOf(i) || 0) * 100 : 0;
     return <Square key={i} value={squares[i]} onClick={() => onClick(i)} isWinningSquare={isWinningSquare} delay={delay} winner={winner} disabled={disabled} />;
   };
@@ -113,8 +113,8 @@ export default function ClassicTicTacToe() {
   };
 
   const winnerInfo = calculateWinner(squares);
-  const winner = winnerInfo?.winner;
-  const winningLine = winnerInfo?.line;
+  const winner = winnerInfo?.winner ?? null;
+  const winningLine = winnerInfo?.line ?? null;
 
   const makeAIMove = useCallback(() => {
     const emptySquares = squares.map((sq, index) => sq === null ? index : null).filter(val => val !== null) as number[];

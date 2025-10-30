@@ -96,7 +96,7 @@ interface BoardProps {
 
 function Board({ squares, onClick, winningLine, winner, squareColors, hoveredSquare, setHoveredSquare, xIsNext, winningPlayerColor, disabled }: BoardProps) {
   const renderSquare = (i: number) => {
-    const isWinningSquare = winningLine && winningLine.includes(i);
+    const isWinningSquare = Boolean(winningLine && winningLine.includes(i));
     const delay = isWinningSquare ? (winningLine?.indexOf(i) || 0) * 100 : 0;
     return <Square key={i} i={i} value={squares[i]} onClick={() => onClick(i)} isWinningSquare={isWinningSquare} delay={delay} winner={winner} squareColor={squareColors[i]} hoveredSquare={hoveredSquare} setHoveredSquare={setHoveredSquare} xIsNext={xIsNext} winningPlayerColor={winningPlayerColor} disabled={disabled} />;
   };
@@ -140,8 +140,8 @@ export default function CrissCross() {
   const [squareColors, setSquareColors] = useState<('red' | 'blue' | 'black' | null)[]>(Array(9).fill(null));
 
   const winnerInfo = calculateWinner(squares);
-  const winner = winnerInfo?.winner;
-  const winningLine = winnerInfo?.line;
+  const winner = winnerInfo?.winner ?? null;
+  const winningLine = winnerInfo?.line ?? null;
 
   const handleClick = useCallback((i: number) => {
     if (isAITurn) return; // Prevent player input during AI turn
@@ -294,7 +294,7 @@ export default function CrissCross() {
     }
 
     return { score: bestScore, move: bestMove };
-  }, [calculateWinner, simulateMove]);
+  }, [simulateMove]);
 
   const makeAIMove = useCallback(() => {
     const emptySquares = squares.map((sq, index) => sq === null ? index : null).filter(val => val !== null) as number[];
@@ -510,3 +510,4 @@ export default function CrissCross() {
         </div>
       </div>
     );
+}
