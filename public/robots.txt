@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://tactic-and-toe.vercel.app/sitemap.xml
