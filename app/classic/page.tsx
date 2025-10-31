@@ -275,7 +275,7 @@ export default function ClassicTicTacToe() {
 
     return (
 
-      <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-8 bg-background text-foreground relative">
+      <div className="flex flex-col items-center justify-center h-screen p-4 md:p-8 bg-background text-foreground relative">
 
         <div className="absolute top-4 left-4">
 
